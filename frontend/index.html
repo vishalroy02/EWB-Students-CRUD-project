@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management | EWB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <a href="#" class="brand">
+            <span class="brand-icon">S</span>
+            <span>Student<span class="brand-light">Hub</span>
+        </a>
+       
+    </header>
+
+    <main class="container">
+        <section class="welcome">
+            <div>
+                <p class="eyebrow">STUDENT MANAGEMENT</p>
+                <h1>Students Database</h1>
+                <p class="subtitle">Manage your student records in one place.</p>
+            </div>
+            <button id="addNewBtn" class="btn btn-primary">+ Add Student</button>
+        </section>
+
+        <section class="stats">
+            <article class="stat-card">
+                <div>
+                    <p class="stat-label">Total Students</p>
+                    <h2 id="totalStudents">0</h2>
+                </div>
+                <span class="stat-icon">♙</span>
+            </article>
+            <article class="stat-card">
+                <div>
+                    <p class="stat-label">Courses Represented</p>
+                    <h2 id="totalCourses">0</h2>
+                </div>
+                <span class="stat-icon">▤</span>
+            </article>
+        </section>
+
+        <section class="panel" id="formPanel">
+            <div class="panel-heading">
+                <div>
+                    <h2 id="formTitle">Add New Student</h2>
+                    <p>Enter the student's information below.</p>
+                </div>
+                <button type="button" id="cancelBtn" class="btn btn-outline">
+                    Cancel
+                </button>
+            </div>
+
+            <form id="studentForm">
+                <div class="form-grid">
+                    <label>
+                        Full Name <span class="required">*</span>
+                        <input id="name" name="name" type="text"
+                               maxlength="100" placeholder="Enter full name" required>
+                    </label>
+
+                    <label>
+                        Date of Birth <span class="required">*</span>
+                        <input id="date_of_birth" name="date_of_birth"
+                               type="date" required>
+                    </label>
+
+                    <label>
+                        Email Address <span class="required">*</span>
+                        <input id="email" name="email" type="email"
+                               maxlength="150" placeholder="student@example.com" required>
+                    </label>
+
+                    <label>
+                        Phone Number
+                        <input id="phone" name="phone" type="tel"
+                               maxlength="20" placeholder="Enter phone number">
+                    </label>
+
+                    <label>
+                        Course
+                        <input id="course" name="course" type="text"
+                               maxlength="100" placeholder="e.g. B.Tech CSE">
+                    </label>
+
+                    <label>
+                        Address
+                        <input id="address" name="address" type="text"
+                               maxlength="255" placeholder="Enter address">
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="resetBtn" class="btn btn-outline">
+                        Clear
+                    </button>
+                    <button type="submit" id="saveBtn" class="btn btn-primary">
+                        Save Student
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading list-heading">
+                <div>
+                    <h2>Student Records</h2>
+                    <p>View and manage all registered students.</p>
+                </div>
+                <label class="search-box">
+                    <span>⌕</span>
+                    <input id="searchInput" type="search"
+                           placeholder="Search by name...">
+                </label>
+            </div>
+
+            <div id="message" class="message" role="status" hidden></div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Student</th>
+                            <th>Date of Birth</th>
+                            <th>Contact</th>
+                            <th>Course</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable">
+                        <tr>
+                            <td colspan="6" class="empty">Loading students...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-footer">
+                <span id="recordCount">0 records</span>
+                <button id="refreshBtn" class="btn btn-outline">↻ Refresh</button>
+            </div>
+        </section>
+
+        <footer>
+            Student Database CRUD Application 
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
