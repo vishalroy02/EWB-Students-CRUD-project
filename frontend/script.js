@@ -83,26 +83,47 @@ function formatDate(value) {
     return `${parts[2]}/${parts[1]}/${parts[0]}`;
 }
 
+
 async function loadStudents(search = "") {
     tableBody.innerHTML = `
         <tr><td colspan="6" class="empty">Loading students...</td></tr>
     `;
 
     try {
-        const path = search.trim()
-            ? `/students?name=${encodeURIComponent(search.trim())}`
-            : "/students";
+        let students;
+        const query = search.trim();
 
-        const students = await apiRequest(path);
+        if (query && /^\d+$/.test(query)) {
+            // Search by numeric Student ID
+            try {
+                const student = await apiRequest(`/students/${query}`);
+                students = [student];
+            } catch (error) {
+                if (error.message.includes("(404)")) {
+                    students = [];
+                } else {
+                    throw error;
+                }
+            }
+        } else {
+            // Search by student name
+            const path = query
+                ? `/students?name=${encodeURIComponent(query)}`
+                : "/students";
+
+            students = await apiRequest(path);
+        }
 
         renderStudents(students);
         updateStats(students);
 
     } catch (error) {
         tableBody.innerHTML = `
-            <tr><td colspan="6" class="empty">
-                ${escapeHTML(error.message)}
-            </td></tr>
+            <tr>
+                <td colspan="6" class="empty">
+                    ${escapeHTML(error.message)}
+                </td>
+            </tr>
         `;
 
         document.getElementById("totalStudents").textContent = "—";
